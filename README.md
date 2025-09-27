@@ -31,7 +31,7 @@ A robust Retrieval-Augmented Generation (RAG) backend built with FastAPI, suppor
 
 ### 1. Clone and Setup
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Anuj-Bhusal/Rag-Backend
 cd rag-backend
 ```
 
