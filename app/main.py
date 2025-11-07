@@ -4,7 +4,7 @@ import logging
 import sys
 
 from app.db.session import init_db
-from app.api import ingest, chat, booking
+from app.api import ingest, chat, booking, marketplace
 
 # Configure logging
 logging.basicConfig(
@@ -46,6 +46,7 @@ except Exception as e:
 app.include_router(ingest.router, prefix="/api")
 app.include_router(chat.router, prefix="/api")
 app.include_router(booking.router, prefix="/api")
+app.include_router(marketplace.router)
 
 @app.get("/")
 async def root():

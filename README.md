@@ -1,10 +1,24 @@
-# RAG Backend API
+# Ropani AI - RAG Backend & Frontend
 
-A robust Retrieval-Augmented Generation (RAG) backend built with FastAPI, supporting document ingestion, conversational AI, and interview booking functionality.
+A full-stack AI-powered land-selling platform built with FastAPI (backend) and React (frontend), featuring intelligent chatbot, document OCR, price analytics, and ML-based price prediction.
+
+## 🌟 Project Overview
+
+**Ropani AI** is an intelligent platform designed for the land-selling industry in Nepal, combining RAG (Retrieval-Augmented Generation) technology with modern web technologies to provide:
+- AI-powered conversational assistant for land queries
+- OCR document scanning and information extraction
+- Real-time price analytics and trends
+- ML-based land price prediction
 
 ## Features
 
-### 🚀 Core Functionality
+### 🎯 Frontend Features (React + Vite)
+- **Intelligent Chatbot** 🤖: Multi-turn RAG-powered conversations with document context
+- **OCR Document Scanner** 📄: Extract information from land ownership documents
+- **Price Dashboard** 📊: Interactive charts showing price trends and analytics
+- **AI Price Predictor** 🔮: ML-powered land price estimation with multiple factors
+
+### 🚀 Backend Features (FastAPI)
 - **Document Ingestion API**: Upload PDF/TXT files with intelligent text extraction and chunking
 - **Conversational RAG API**: Multi-turn conversations with document context and Redis-based memory
 - **Interview Booking API**: Schedule interviews with validation and storage
@@ -14,19 +28,30 @@ A robust Retrieval-Augmented Generation (RAG) backend built with FastAPI, suppor
 - **Database**: PostgreSQL for metadata and booking storage
 
 ### 🛠️ Technology Stack
-- **Backend**: FastAPI with async support
-- **Vector Database**: Qdrant
-- **Session Store**: Redis
-- **Database**: PostgreSQL with SQLAlchemy ORM
-- **Embeddings**: Cohere API (embed-english-v3.0)
-- **LLM**: Cohere API (command-nightly) with HuggingFace fallback
-- **Containerization**: Docker & Docker Compose
+
+**Frontend:**
+- React 18 with Vite
+- React Router 6 for routing
+- Axios for API calls
+- Recharts for data visualization
+- React Icons for UI icons
+- CSS3 with gradients and animations
+
+**Backend:**
+- FastAPI with async support
+- Vector Database: Qdrant
+- Session Store: Redis
+- Database: PostgreSQL with SQLAlchemy ORM
+- Embeddings: Cohere API (embed-english-v3.0)
+- LLM: Cohere API (command-nightly) with HuggingFace fallback
+- Containerization: Docker & Docker Compose
 
 ## Quick Start
 
 ### Prerequisites
 - Docker Desktop
-- Python 3.11+ (for local development)
+- Node.js 18+ (20.19+ recommended for frontend)
+- Python 3.11+ (for local backend development)
 - Git
 
 ### 1. Clone and Setup
@@ -45,9 +70,9 @@ cp .env.template .env
 # Optional: HF_API_KEY=your_hf_key (fallback)
 ```
 
-### 3. Run with Docker (Recommended)
+### 3. Start Backend Services
 ```bash
-# Start all services
+# Start all backend services (PostgreSQL, Redis, Qdrant, FastAPI)
 docker-compose up -d
 
 # Check service health
@@ -59,8 +84,25 @@ docker-compose logs -f app
 
 The API will be available at `http://localhost:8000`
 
-### 4. API Documentation
-Visit `http://localhost:8000/docs` for interactive API documentation.
+### 4. Start Frontend Development Server
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start Vite dev server
+npm run dev
+```
+
+The frontend will be available at `http://localhost:5173`
+
+### 5. Access the Application
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:8000
+- **API Docs**: http://localhost:8000/docs
+- **Qdrant Dashboard**: http://localhost:6333/dashboard
 
 ## API Endpoints
 

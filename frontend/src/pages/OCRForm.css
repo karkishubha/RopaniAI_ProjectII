@@ -1,0 +1,398 @@
+.ocr-page {
+  padding-top: 70px;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.ocr-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.ocr-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.ocr-header h1 {
+  font-size: 40px;
+  color: #2d3748;
+  margin-bottom: 12px;
+}
+
+.ocr-header p {
+  font-size: 18px;
+  color: #718096;
+}
+
+.ocr-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+/* Upload Section */
+.upload-section {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.upload-section h2 {
+  font-size: 24px;
+  color: #2d3748;
+  margin-bottom: 24px;
+}
+
+.drop-zone {
+  border: 3px dashed #cbd5e0;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+  background: #f7fafc;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.drop-zone.active {
+  border-color: #667eea;
+  background: #edf2f7;
+  transform: scale(1.02);
+}
+
+.drop-zone.has-file {
+  border-color: #48bb78;
+  background: #f0fff4;
+}
+
+.upload-icon {
+  font-size: 64px;
+  color: #cbd5e0;
+  margin-bottom: 20px;
+}
+
+.upload-text {
+  font-size: 18px;
+  color: #4a5568;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.upload-subtext {
+  font-size: 14px;
+  color: #718096;
+  margin: 16px 0;
+}
+
+.btn-browse {
+  display: inline-block;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-browse:hover {
+  transform: translateY(-2px);
+}
+
+.upload-info {
+  font-size: 13px;
+  color: #a0aec0;
+  margin-top: 16px;
+}
+
+/* File Preview in Drop Zone */
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+}
+
+.file-icon {
+  font-size: 48px;
+  color: #48bb78;
+}
+
+.file-details {
+  text-align: left;
+}
+
+.file-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 4px;
+}
+
+.file-size {
+  font-size: 14px;
+  color: #718096;
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: #f56565;
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-remove:hover {
+  transform: scale(1.1);
+}
+
+/* Extract Button */
+.btn-extract {
+  width: 100%;
+  padding: 16px;
+  margin-top: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.2s;
+}
+
+.btn-extract:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn-extract:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Image Preview */
+.image-preview {
+  margin-top: 32px;
+}
+
+.image-preview h3 {
+  font-size: 18px;
+  color: #2d3748;
+  margin-bottom: 16px;
+}
+
+.preview-container {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7fafc;
+}
+
+.preview-container img {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+/* Extracted Data Section */
+.extracted-section {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.extracted-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.success-icon {
+  font-size: 48px;
+  color: #48bb78;
+}
+
+.extracted-header h2 {
+  font-size: 28px;
+  color: #2d3748;
+  margin-bottom: 4px;
+}
+
+.extracted-header p {
+  font-size: 14px;
+  color: #718096;
+}
+
+/* Data Grid */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.data-group {
+  background: #f7fafc;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+}
+
+.data-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.data-group h3 {
+  font-size: 18px;
+  color: #2d3748;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.data-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.data-item:last-child {
+  border-bottom: none;
+}
+
+.data-item label {
+  font-size: 14px;
+  color: #718096;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-right: 16px;
+}
+
+.data-item span {
+  font-size: 14px;
+  color: #2d3748;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Boundaries Grid */
+.boundaries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.boundary-item {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.boundary-item label {
+  display: block;
+  font-size: 13px;
+  color: #718096;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.boundary-item span {
+  display: block;
+  font-size: 15px;
+  color: #2d3748;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 24px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.action-buttons button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-export {
+  background: #4299e1;
+  color: white;
+}
+
+.btn-export:hover {
+  background: #3182ce;
+  transform: translateY(-2px);
+}
+
+.btn-save {
+  background: #48bb78;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #38a169;
+  transform: translateY(-2px);
+}
+
+.btn-new {
+  background: #ed8936;
+  color: white;
+}
+
+.btn-new:hover {
+  background: #dd6b20;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ocr-header h1 {
+    font-size: 32px;
+  }
+
+  .drop-zone {
+    padding: 40px 20px;
+  }
+
+  .upload-icon {
+    font-size: 48px;
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+}
