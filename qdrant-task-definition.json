@@ -1,0 +1,62 @@
+{
+  "family": "ropani-qdrant-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "qdrant",
+      "image": "qdrant/qdrant:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 6333,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 6334,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "QDRANT__SERVICE__HTTP_PORT",
+          "value": "6333"
+        },
+        {
+          "name": "QDRANT__SERVICE__GRPC_PORT",
+          "value": "6334"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "qdrant-storage",
+          "containerPath": "/qdrant/storage",
+          "readOnly": false
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/ropani-qdrant",
+          "awslogs-region": "ap-south-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "qdrant-storage",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "EFS_FILE_SYSTEM_ID",
+        "transitEncryption": "ENABLED",
+        "authorizationConfig": {
+          "iam": "ENABLED"
+        }
+      }
+    }
+  ]
+}

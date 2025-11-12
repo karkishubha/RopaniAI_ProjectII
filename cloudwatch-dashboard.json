@@ -1,0 +1,114 @@
+{
+  "widgets": [
+    {
+      "type": "metric",
+      "properties": {
+        "metrics": [
+          ["AWS/ECS", "CPUUtilization", {"stat": "Average"}],
+          [".", "MemoryUtilization", {"stat": "Average"}]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "ap-south-1",
+        "title": "ECS Resource Utilization",
+        "yAxis": {
+          "left": {
+            "min": 0,
+            "max": 100
+          }
+        }
+      }
+    },
+    {
+      "type": "metric",
+      "properties": {
+        "metrics": [
+          ["AWS/ApplicationELB", "TargetResponseTime", {"stat": "Average"}],
+          [".", "RequestCount", {"stat": "Sum", "yAxis": "right"}]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "ap-south-1",
+        "title": "ALB Performance",
+        "yAxis": {
+          "left": {
+            "label": "Response Time (ms)"
+          },
+          "right": {
+            "label": "Request Count"
+          }
+        }
+      }
+    },
+    {
+      "type": "metric",
+      "properties": {
+        "metrics": [
+          ["AWS/RDS", "DatabaseConnections", {"stat": "Average"}],
+          [".", "CPUUtilization", {"stat": "Average"}],
+          [".", "FreeableMemory", {"stat": "Average"}]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "ap-south-1",
+        "title": "RDS Metrics"
+      }
+    },
+    {
+      "type": "metric",
+      "properties": {
+        "metrics": [
+          ["AWS/ElastiCache", "CurrConnections", {"stat": "Average"}],
+          [".", "CPUUtilization", {"stat": "Average"}],
+          [".", "NetworkBytesIn", {"stat": "Sum"}],
+          [".", "NetworkBytesOut", {"stat": "Sum"}]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "ap-south-1",
+        "title": "ElastiCache (Redis) Metrics"
+      }
+    },
+    {
+      "type": "log",
+      "properties": {
+        "query": "SOURCE '/ecs/ropani-backend'\n| fields @timestamp, @message\n| filter @message like /ERROR/\n| sort @timestamp desc\n| limit 20",
+        "region": "ap-south-1",
+        "title": "Recent Backend Errors",
+        "stacked": false
+      }
+    },
+    {
+      "type": "metric",
+      "properties": {
+        "metrics": [
+          ["RopaniAI", "BackendErrors", {"stat": "Sum"}]
+        ],
+        "period": 300,
+        "stat": "Sum",
+        "region": "ap-south-1",
+        "title": "Application Errors",
+        "yAxis": {
+          "left": {
+            "min": 0
+          }
+        }
+      }
+    },
+    {
+      "type": "metric",
+      "properties": {
+        "metrics": [
+          ["AWS/CloudFront", "Requests", {"stat": "Sum"}],
+          [".", "BytesDownloaded", {"stat": "Sum"}],
+          [".", "4xxErrorRate", {"stat": "Average"}],
+          [".", "5xxErrorRate", {"stat": "Average"}]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "us-east-1",
+        "title": "CloudFront Metrics"
+      }
+    }
+  ]
+}

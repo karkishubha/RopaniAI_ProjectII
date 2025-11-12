@@ -100,6 +100,46 @@ class LandDocumentOCR:
                 return value
         return None
     
+    def clean_extracted_name(self, name: str) -> str:
+        """
+        Clean extracted name by removing label text and standardizing format
+        Takes only the text after colon if present, removes extra spaces
+        """
+        if not name:
+            return name
+        
+        # If there's a colon (including Devanagari visarga), take everything after it
+        if ':' in name or 'ः' in name:
+            # Split on either Latin colon or Devanagari visarga
+            if 'ः' in name:
+                name = name.split('ः', 1)[1]
+            elif ':' in name:
+                name = name.split(':', 1)[1]
+        
+        # Remove common label text that might still be in the extracted value
+        labels_to_remove = [
+            r'को\s*नाम\s*थर\s*',  # को नाम थर
+            r'को\s*नाम\s*',  # को नाम
+            r'नाम\s*थर\s*',  # नाम थर
+            r'^नाम\s+',  # नाम at start
+            r'^थर\s+',  # थर at start
+            r'^Name\s+',  # Name at start
+            r'^Surname\s+',  # Surname at start
+            r'^Full\s*Name\s+',  # Full Name at start
+        ]
+        
+        cleaned = name
+        for label in labels_to_remove:
+            cleaned = re.sub(label, '', cleaned, flags=re.IGNORECASE)
+        
+        # Remove extra whitespace (multiple spaces, leading/trailing)
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+        
+        # Remove any remaining leading/trailing colons, visarga, hyphens, or special chars
+        cleaned = cleaned.strip(':ः - ,.')
+        
+        return cleaned
+    
     def extract_primary_owner(self, text: str) -> Optional[str]:
         """
         Extract the PRIMARY land owner's name, filtering out father/mother/spouse names
@@ -137,11 +177,13 @@ class LandDocumentOCR:
             match = re.search(pattern, text, re.IGNORECASE | re.MULTILINE)
             if match:
                 owner_name = match.group(1).strip()
+                owner_name = self.clean_extracted_name(owner_name)
                 owner_name = re.sub(r'\s+', ' ', owner_name)
                 
                 # Double-check the extracted name doesn't contain exclude keywords
                 if not any(keyword in owner_name.lower() for keyword in exclude_keywords):
-                    return owner_name
+                    if owner_name:  # Only return if not empty after cleaning
+                        return owner_name
         
         # Fallback: Look for first name field that isn't preceded by exclude keywords
         name_patterns = [
@@ -157,6 +199,7 @@ class LandDocumentOCR:
                 # Check if any exclude keyword appears right before this name
                 if not any(keyword in context_before for keyword in exclude_keywords):
                     owner_name = match.group(1).strip()
+                    owner_name = self.clean_extracted_name(owner_name)
                     owner_name = re.sub(r'\s+', ' ', owner_name)
                     if owner_name:
                         return owner_name
