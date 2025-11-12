@@ -11,8 +11,12 @@ from sqlalchemy.orm import sessionmaker
 MYSQL_URL = os.getenv("MYSQL_URL")
 
 if MYSQL_URL:
-    # Use Railway's provided MYSQL_URL
-    MYSQL_DATABASE_URL = MYSQL_URL
+    # Use Railway's provided MYSQL_URL, but replace mysql:// with mysql+pymysql://
+    # to ensure we use the pymysql driver instead of mysqldb
+    if MYSQL_URL.startswith("mysql://"):
+        MYSQL_DATABASE_URL = MYSQL_URL.replace("mysql://", "mysql+pymysql://", 1)
+    else:
+        MYSQL_DATABASE_URL = MYSQL_URL
 else:
     # Build URL from individual components for local development
     MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
