@@ -34,13 +34,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize DB
+# Initialize DB (non-blocking - let app start even if DB connection fails initially)
 try:
     init_db()
     logger.info("Database initialized successfully")
 except Exception as e:
     logger.error(f"Failed to initialize database: {e}")
-    raise
+    logger.warning("App will continue starting, but database operations may fail until connection is established")
 
 # Include routers
 app.include_router(ingest.router, prefix="/api")
