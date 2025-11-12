@@ -11,6 +11,7 @@ const PhotoUpload = ({ listingId, onPhotosUpdate, existingPhotos = [] }) => {
   const [caption, setCaption] = useState('');
   const [isPrimary, setIsPrimary] = useState(false);
   const [error, setError] = useState('');
+  
   const fileInputRef = useRef(null);
 
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
