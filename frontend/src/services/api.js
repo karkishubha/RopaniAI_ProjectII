@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-// Since Vite proxy handles /api -> http://localhost:8000, we just need /api
+// Use environment variable for API URL, fallback to relative path for local dev
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 const api = axios.create({
-  baseURL: '',  // Empty since we're using relative paths with Vite proxy
+  baseURL: API_URL,  // Use Railway backend URL in production
   headers: {
     'Content-Type': 'application/json',
   },
