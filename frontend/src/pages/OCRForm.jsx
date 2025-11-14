@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import './OCRForm.css';
 import { FaUpload, FaFileAlt, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
+// Component for uploading and processing land documents using OCR
 const OCRForm = () => {
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [extractedData, setExtractedData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [dragActive, setDragActive] = useState(false);
+  // State variables for managing file upload and OCR process
+  const [file, setFile] = useState(null);                 // Selected file
+  const [preview, setPreview] = useState(null);           // Image preview URL
+  const [extractedData, setExtractedData] = useState(null); // OCR extracted data
+  const [loading, setLoading] = useState(false);          // Loading state during extraction
+  const [dragActive, setDragActive] = useState(false);    // Drag-and-drop active state
 
-  // Handle file selection
+  // Handle file selection from file input
   const handleFileChange = (e) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
@@ -17,11 +19,11 @@ const OCRForm = () => {
     }
   };
 
-  // Process file
+  // Process selected file and create image preview
   const processFile = (selectedFile) => {
     setFile(selectedFile);
     
-    // Create preview
+    // Use FileReader to create a preview URL for the image
     const reader = new FileReader();
     reader.onload = (e) => {
       setPreview(e.target.result);
@@ -29,37 +31,39 @@ const OCRForm = () => {
     reader.readAsDataURL(selectedFile);
   };
 
-  // Handle drag events
+  // Handle drag events for file drag-and-drop functionality
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (e.type === 'dragenter' || e.type === 'dragover') {
-      setDragActive(true);
+      setDragActive(true);  // Show visual feedback when dragging over
     } else if (e.type === 'dragleave') {
-      setDragActive(false);
+      setDragActive(false); // Remove feedback when leaving
     }
   };
 
-  // Handle drop
+  // Handle file drop event
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
     
+    // Process the dropped file
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       processFile(e.dataTransfer.files[0]);
     }
   };
 
-  // Extract data (mock function - replace with actual API call)
+  // Extract data from uploaded document (currently using mock data)
+  // TODO: Replace with actual OCR API call to backend
   const handleExtractData = async () => {
     if (!file) return;
 
     setLoading(true);
     
-    // Simulate API call
+    // Simulate API call with 2 second delay
     setTimeout(() => {
-      // Mock extracted data
+      // Mock extracted data - this will be replaced with real OCR results
       setExtractedData({
         documentType: 'Land Ownership Certificate',
         ownerName: 'Ram Prasad Sharma',
@@ -83,7 +87,7 @@ const OCRForm = () => {
     }, 2000);
   };
 
-  // Reset form
+  // Reset form to initial state for new document upload
   const handleReset = () => {
     setFile(null);
     setPreview(null);
@@ -99,7 +103,7 @@ const OCRForm = () => {
         </div>
 
         <div className="ocr-content">
-          {/* Upload Section */}
+          {/* File Upload Section - handles drag-and-drop and browse uploads */}
           <div className="upload-section">
             <h2>Upload Document</h2>
             
@@ -140,6 +144,7 @@ const OCRForm = () => {
               )}
             </div>
 
+            {/* Show extract button only when file is uploaded but data not yet extracted */}
             {file && !extractedData && (
               <button 
                 className="btn-extract" 
@@ -160,7 +165,7 @@ const OCRForm = () => {
               </button>
             )}
 
-            {/* Preview */}
+            {/* Document Preview - shows uploaded image */}
             {preview && (
               <div className="image-preview">
                 <h3>Document Preview</h3>
@@ -171,7 +176,7 @@ const OCRForm = () => {
             )}
           </div>
 
-          {/* Extracted Data Section */}
+          {/* Extracted Data Display - shows OCR results in organized format */}
           {extractedData && (
             <div className="extracted-section">
               <div className="extracted-header">
@@ -182,6 +187,7 @@ const OCRForm = () => {
                 </div>
               </div>
 
+              {/* Grid layout displaying extracted information in organized groups */}
               <div className="data-grid">
                 <div className="data-group">
                   <h3>Document Details</h3>
@@ -262,6 +268,7 @@ const OCRForm = () => {
                 </div>
               </div>
 
+              {/* Action buttons for exporting, saving, or scanning new document */}
               <div className="action-buttons">
                 <button className="btn-export">Export as PDF</button>
                 <button className="btn-save">Save to Database</button>
