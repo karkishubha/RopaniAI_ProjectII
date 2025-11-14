@@ -33,7 +33,7 @@ class ChunkingService:
                 break
             chunk = " ".join(chunk_words)
             chunks.append(chunk)
-            
+            #Checked for empty chunked tokens
             # Break if we've reached the end
             if i + self.token_size >= len(words):
                 break

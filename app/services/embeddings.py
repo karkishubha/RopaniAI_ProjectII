@@ -13,7 +13,8 @@ load_dotenv()
 class EmbeddingService:
     def __init__(self, model_name: str = "embed-english-v3.0") -> None:
         self.model_name = model_name
-        self.embedding_dim = 1024  # Cohere embedding dimension
+        self.embedding_dim = 1024  # Cohere embedding dimension 
+        #Initialized the cohere dimesnions at 1024dimensions
         
         # Check if we should use Cohere
         self.use_cohere = os.getenv("USE_COHERE", "false").lower() == "true"
